@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  # before_action :set_user, only: [:show, :edit, :update]
 
   def show
+    @user = User.find(params[:id])
   end
 
   def index
@@ -35,13 +36,20 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    flash[:notice] = "User successfully deleted"
-    redirect_to users_path
+    ActiveRecord::Base.transaction do
+      User.find(params[:id]).destroy
+      flash[:notice] = "User successfully deleted"
+
+    end
+    redirect_to users_path && return
+  rescue StandardError => e
+    puts "Transaction failed. Reason: #{e}"
+
   end
 
   private
   def set_user
+
     @user = User.find(params[:id])
   end
 
