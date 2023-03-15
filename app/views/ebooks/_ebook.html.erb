@@ -1,0 +1,13 @@
+<div class="container">
+  <% @ebooks.each do |ebook| %>
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="..." alt="image">
+      <div class="card-body">
+        <h5 class="card-title"><%= ebook.title %></h5>
+        <h6 class="card-title"><%= ebook.date_release %></h6>
+        <p class="card-text"><%= ebook.description %></p>
+        <a href="#" class="btn btn-primary">Buy</a>
+      </div>
+    </div>
+  <% end %>
+</div>

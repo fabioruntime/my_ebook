@@ -1,0 +1,79 @@
+@import 'bootstrap';
+
+.navbar {
+  background-color: rgb(187, 12, 12) !important;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.a-primary{
+  color: #ec1c24;
+  &:hover {
+    color: #ec1c24;
+  }
+}
+
+#logo {
+  float: left;
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+#home-container {
+  margin-top: 25px;
+}
+
+.jumbotron {
+  background-image: asset-url('jumbo-copy.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 425px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#page-content {
+  flex: 1 0 auto;
+  background-color: lightgrey;
+}
+
+//Cards
+.card-body {
+  color: #ec1c24;
+}
+
+// Ebook Detail
+.ebook-detail-image {
+  width: 100%;
+  position: relative;
+  margin: 25px 0;
+  padding-right: 30px;
+}
+
+.ebook-detail-text {
+  color: #ec1c24;
+  font-size: 15px;
+  font-weight: 100;
+  margin: 25px 0;
+  font-family: 'Raleway', sans-serif;
+  h2 {
+    font-weight: 700;
+    font-size: 26px;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .description {
+      width: 400px;
+      word-wrap: break-word;
+      text-align: justify;
+  }
+}

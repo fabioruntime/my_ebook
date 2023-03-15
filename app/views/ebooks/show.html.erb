@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row justify-content-md-center mt-4">
+    <div class="column">
+      <div class="ebook-detail-image">
+        <%= image_tag("image1.jpeg", width: 400) %>
+        <div class="text-center mt-4">
+          <%= link_to "Edit Ebook", edit_ebook_path(@ebook), class: "btn btn-outline-danger" %>
+          <%= link_to "Delete Ebook", ebook_path(@ebook), class: "btn btn-outline-danger", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure?"} %>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="ebook-detail-text">
+        <h2><%= @ebook.title %></h2>
+        <p><strong> Author: </strong>
+          <%= @authors %>
+        </p>
+        <br/>
+        <span>
+          <strong> Release: </strong>
+          <%= @ebook.date_release %>
+          <br/>
+          <strong> No. of pages: </strong>
+
+        </span>
+        <div class="description">
+          <strong> Description: </strong>
+          <%= @ebook.description %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,19 @@
+<h1 class="text-center mt-4">Users</h1>
+
+<div class="container">
+  <div class="row">
+    <% @users.each do |user| %>
+      <div class="col-12 col-lg-4 mt-4">
+        <div class="card h-100" style="width: 18rem;">
+          <img class="card-img-top" src="..." alt="image">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= link_to user.name, user, class: "a-primary"%>
+            </h5>
+            <p class="card-text"><small>Joined <%= time_ago_in_words(user.created_at) %> ago</small></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
