@@ -1,0 +1,30 @@
+<div class="container">
+  <h1 class="text-center mt-4">Ebooks Management</h1>
+
+  <table class="table">
+    <tbody>
+      <% @ebooks.each do |ebook| %>
+        <tr>
+          <td ><strong> <%= link_to ebook.title, ebook, class: "a-primary" %> </strong>
+              <p><%= truncate(ebook.description, length: 50) %> </p>
+            </td>
+          <td><%= ebook.date_release %></td>
+          <td>
+            <% Ebook::statuses.each do |status, key| %>
+              <%= link_to status, change_status_ebook_path(ebook, status: status), class: "#{ebook.status.eql?(status)? 'btn btn-secondary btn-sm' : 'btn btn-outline-secondary btn-sm'}", data: {"turbo-method": :patch } %>
+            <% end %>
+          </td>
+          <%
+=begin%>
+ <td>
+            <%= link_to 'Show', ebook, class: 'btn btn-outline-info btn-sm' %>
+            <%= link_to 'Edit', edit_ebook_path(ebook), class: 'btn btn-outline-info btn-sm' %>
+            <%= link_to 'Delete', ebook_path(ebook), method: :delete, class: 'btn btn-outline-danger btn-sm', data: {"turbo-method": :delete, "turbo-confirm": "Are you sure?"}  %>
+          </td>
+<%
+=end%>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+</div>

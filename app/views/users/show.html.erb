@@ -15,10 +15,26 @@
         <p><strong> Username: </strong>
           <%= @user.username %>
         </p>
+        <p><strong> Status: </strong>
+          <%= @user.status.capitalize %>
+        </p>
       </div>
     </div>
   </div>
-  <div class="row justify-content-md-left mt-4">
-    <h2> My Ebooks </h2>
-  </div>
+  <% if !@ebooks.blank? %>
+    <div class="row justify-content-md-left mt-4">
+      <h2> My Ebooks </h2>
+      <table class="table">
+        <tbody>
+          <% @ebooks.each do |ebook| %>
+            <tr>
+              <td>
+                <%= link_to ebook.title, ebook %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>
