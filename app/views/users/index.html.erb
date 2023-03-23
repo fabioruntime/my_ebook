@@ -2,11 +2,17 @@
 
 <div class="container">
   <div class="row">
-    <% @users.each do |user| %>
-      <div class="col-12 col-lg-4 mt-4">
-        <div class="card h-100" style="width: 18rem;">
-          <img class="card-img-top" src="..." alt="image">
-          <div class="card-body">
+    <% users.each do |user| %>
+      <div class="col-12 col-lg-3 mt-4">
+        <div class="card h-100">
+          <div class="text-center mt-4">
+            <% if user.avatar.attached? %>
+              <%= cl_image_tag  "profiles/#{user.avatar.key}", version: ENV["CLOUD_PROFILES_FOLDER_VERSION"], width: 100, crop: "fill" %>
+            <% else %>
+              <%= cl_image_tag "profiles/default_avatar_j9qcnm.jpg", version: ENV["CLOUD_PROFILES_FOLDER_VERSION"], width: 115, crop: " "%>
+            <% end %>
+          </div>
+          <div class="card-body text-center">
             <h5 class="card-title">
               <%= link_to user.name, user, class: "a-primary"%>
             </h5>

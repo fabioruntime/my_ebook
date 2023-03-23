@@ -3,7 +3,7 @@
 
   <table class="table">
     <tbody>
-      <% @ebooks.each do |ebook| %>
+      <% ebooks.each do |ebook| %>
         <tr>
           <td ><strong> <%= link_to ebook.title, ebook, class: "a-primary" %> </strong>
               <p><%= truncate(ebook.description, length: 50) %> </p>

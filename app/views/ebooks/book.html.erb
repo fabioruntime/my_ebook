@@ -1,0 +1,10 @@
+<h1 class="text-center mt-4"> Book</h1>
+<div class="container text-center mt-4 mb-4">
+  <% [1,2].map do |n| %>
+    <%= cl_image_tag("ebooks_files/#{ebook.files.key}.jpg", version: ENV["CLOUD_EBOOKS_FILES_FOLDER_VERSION"], :transformation=>[
+      {width: 500, crop: "scale"},
+      {page: "#{n}"}
+      ])
+      %>
+  <% end %>
+</div>

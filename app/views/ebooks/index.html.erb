@@ -5,18 +5,24 @@
 
 <div class="container">
   <div class="row">
-    <% @ebooks.each do |ebook| %>
+    <% ebooks.each do |ebook| %>
         <div class="col-12 col-lg-4 mt-4 mb-4">
-            <div class="card h-100" style="width: 22rem;">
-              <%= image_tag("no-image-icon.png")%>
-              <div class="card-body">
+            <div class="card h-100">
+              <div class="text-center mt-4">
+                <% if ebook.image.attached? %>
+                  <%= cl_image_tag  "ebooks/#{ebook.image.key}", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 200, crop: "fill" %>
+                <% else %>
+                  <%= cl_image_tag "ebooks/default_image_prdz6a.jpg", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 200, crop: " "%>
+                <% end %>
+              </div>
+              <div class="card-body mt-4">
                 <h5 class="card-title">
                   <%= link_to ebook.title, ebook_path(ebook), class: "a-primary" %>
                 </h5>
                 <h6 class="card-title"><%= ebook.date_release %></h6>
                 <p class="card-text"><%= truncate(ebook.description, length: 100)  %></p>
-                <a href="#" class="btn btn-danger mt-4">Buy</a>
               </div>
+               <%= button_to 'Buy now', checkout_create_path, params: { id: ebook.id }, class: "btn btn-danger mt-4 w-100" %>
             </div>
         </div>
     <% end %>

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   enum :status, { disable: 0, enable: 1 }
 
+  has_one_attached :avatar, service: :cloudinary_profiles
   has_many :user_ebook
   has_many :ebooks, through: :user_ebook
 

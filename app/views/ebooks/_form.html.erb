@@ -1,26 +1,26 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-10">
-      <%= render 'shared/errors', obj: @ebook %>
-      <%= form_with(model: @ebook, class: "shadow p-3 mb-3 bg-secondary rounded", local: true) do |f| %>
+      <%= render 'shared/errors', obj: ebook %>
+      <%= form_with(model: ebook, class: "shadow p-3 mb-3 bg-secondary rounded", local: true) do |f| %>
         <div class="form-group row">
           <%= f.label :title, class: "col-2 col-form-label text-light" %>
           <div class="col-10">
-            <%= f.text_field :title, class: "form-control shadow rounded", placeholder: "Title of ebook" %>
+            <%= f.text_field :title, class: "form-control shadow rounded", placeholder: "Title of ebook", value: params[:title] || ebook&.title %>
           </div>
         </div>
 
         <div class="form-group row">
           <%= f.label :description, class: "col-2 col-form-label text-light" %>
           <div class="col-10">
-            <%= f.text_area :description, rows: 10, class: "form-control shadow rounded", placeholder: "Description of ebook" %>
+            <%= f.text_area :description, rows: 10, class: "form-control shadow rounded", placeholder: "Description of ebook", value: params[:description] || ebook&.description  %>
           </div>
         </div>
 
         <div class="form-group row">
           <%= f.label :date_release, class: "col-2 col-form-label text-light" %>
           <div class="col-3">
-            <%= f.date_field :date_release, class: "form-control shadow rounded", placeholder: "Title of article" %>
+            <%= f.date_field :date_release, class: "form-control shadow rounded", placeholder: "Title of article", value: params[:date_release] || ebook&.date_release  %>
           </div>
         </div>
 
@@ -29,6 +29,16 @@
           <div class="col-3">
             <%= f.select(:status, Ebook.statuses.keys.map{ |key| [key.humanize, key] }, {}, { :class => 'form-control shadow rounded' }) %>
           </div>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label 'Ebook Cover', class: "col-2 col-form-label text-light" %>
+          <%= f.file_field :image %>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label 'Ebook File', class: "col-2 col-form-label text-light" %>
+          <%= f.file_field :files %>
         </div>
 
         <div class="form-group row justify-content-center">

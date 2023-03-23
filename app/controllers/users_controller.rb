@@ -1,53 +1,61 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :change_status]
 
   def show
-    @ebooks = @user.ebooks
+    user = User.find(params[:id])
+    ebooks = user.ebooks
+    render :show, locals: { user: user, ebooks: ebooks }
   end
 
   def index
-    @users = User.all
+    users = User.all
+    render :index, locals: { users: users }
   end
 
   def new
-    @user = User.new
+    render :new, locals: { user: User.new }
   end
 
   def edit
-  end
-
-  def manager_users
-    @users = User.all
+    user = User.find(params[:id])
+    render :edit, locals: { user: user }
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      flash[:notice] = "User created successfully"
-      redirect_to users_path
-    else
-      render :new, status: :unprocessable_entity
-    end
+    user = User.new(user_params)
+    user.save!
+    redirect_to users_path, notice:"User created successfully"
+
+  rescue StandardError => e
+    flash[:danger] = "Error creating a new User: #{e} "
+    old_input = params
+    render :new, locals: { user: nil, params: old_input }, status: :unprocessable_entity
   end
 
   def update
-    if @user.update(user_params)
-      flash[:notice] = "User updated successfully"
-      redirect_to @user
-    else
-      render :edit, status: :unprocessable_entity
-    end
+    user = User.find(params[:id])
+    user.update!(user_params)
+    redirect_to user, notice: "User updated successfully."
+
+  rescue StandardError => e
+    flash[:danger] = "Error to update: #{e} "
+    old_input = params
+    render :edit, locals: { user: nil, params: old_input }, status: :unprocessable_entity
   end
 
   def destroy
-    @user.destroy
-    flash[:notice] = "User successfully deleted"
-    redirect_to users_path, status: :see_other
+    user = User.find(params[:id])
+    user.destroy
+    redirect_to users_path, status: :see_other, notice: "User deleted successfully"
+  end
+
+  def manager_users
+    render :manager_ebooks, locals: { users: User.all }
   end
 
   def change_status
     if params[:status].present? && User::statuses.include?(params[:status].to_sym)
-      @user.update(status: params[:status])
+      user = User.find(params[:id])
+      user.update(status: params[:status])
       redirect_to @user, notice: "Status updated to #{@user.status}"
     else
       render :manager_users, status: :unprocessable_entity
@@ -55,12 +63,9 @@ class UsersController < ApplicationController
   end
 
   private
-  def set_user
-    @user = User.find(params[:id])
-  end
 
   def user_params
-    params.require(:user).permit(:name, :username, :email, :password, :status)
+    params.require(:user).permit(:name, :username, :email, :password, :status, :avatar)
   end
 
 end
