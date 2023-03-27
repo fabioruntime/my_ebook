@@ -20,7 +20,7 @@
         <div class="form-group row">
           <%= f.label :date_release, class: "col-2 col-form-label text-light" %>
           <div class="col-3">
-            <%= f.date_field :date_release, class: "form-control shadow rounded", placeholder: "Title of article", value: params[:date_release] || ebook&.date_release  %>
+            <%= f.date_field :date_release, class: "form-control shadow rounded", value: params[:date_release] || ebook&.date_release  %>
           </div>
         </div>
 
@@ -32,6 +32,13 @@
         </div>
 
         <div class="form-group row">
+          <%= f.label :price, class: "col-2 col-form-label text-light" %>
+          <div class="col-2">
+            <%= f.text_field :price, class: "form-control shadow rounded", placeholder: "Price of ebook", value: params[:price] || ebook&.price  %>
+          </div>
+        </div>
+
+        <div class="form-group row">
           <%= f.label 'Ebook Cover', class: "col-2 col-form-label text-light" %>
           <%= f.file_field :image %>
         </div>
@@ -39,6 +46,13 @@
         <div class="form-group row">
           <%= f.label 'Ebook File', class: "col-2 col-form-label text-light" %>
           <%= f.file_field :files %>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label :num_pages, 'Pages', class: "col-2 col-form-label text-light" %>
+          <div class="col-2">
+            <%= f.text_field :num_pages, class: "form-control shadow rounded", placeholder: "Price of ebook", value: params[:num_pages] || ebook&.num_pages  %>
+          </div>
         </div>
 
         <div class="form-group row justify-content-center">

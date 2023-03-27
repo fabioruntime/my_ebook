@@ -1,15 +1,28 @@
 <div class="container">
-  <h1 class="text-center mt-4">Ebooks Management</h1>
+  <div class="text-center mt-4 mb-4">
+    <h1 class="text-center">Ebooks Management</h1>
+    <%= link_to "Add Ebook", new_ebook_path, class: "btn btn-outline-danger" %>
+  </div>
 
-  <table class="table">
+  <table class="table table-striped p-3 mb-5 rounded bg-light text-dark">
     <tbody>
       <% ebooks.each do |ebook| %>
         <tr>
-          <td ><strong> <%= link_to ebook.title, ebook, class: "a-primary" %> </strong>
-              <p><%= truncate(ebook.description, length: 50) %> </p>
-            </td>
-          <td><%= ebook.date_release %></td>
+          <td class="align-middle text-center">
+            <% if ebook.image.attached? %>
+              <%= cl_image_tag  "ebooks/#{ebook.image.key}", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 50, crop: "fill" %>
+            <% else %>
+              <%= cl_image_tag "ebooks/default_image_prdz6a.jpg", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 50, crop: " "%>
+            <% end %>
+          </td>
           <td>
+            <strong> <%= link_to ebook.title, ebook, class: "a-primary" %> </strong>
+            <p><%= truncate(ebook.description, length: 50) %> </p>
+          </td>
+          <td class="align-middle text-center">
+            <%= ebook.date_release %>
+          </td>
+          <td class="align-middle text-center">
             <% Ebook::statuses.each do |status, key| %>
               <%= link_to status, change_status_ebook_path(ebook, status: status), class: "#{ebook.status.eql?(status)? 'btn btn-secondary btn-sm' : 'btn btn-outline-secondary btn-sm'}", data: {"turbo-method": :patch } %>
             <% end %>

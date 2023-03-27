@@ -10,4 +10,8 @@ class Ebook < ApplicationRecord
 
   validates :title, presence: true
   validates :description, presence: true
+  validates :price, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/,
+                                      message: "Price must be equal 0 or greater 0.01" },
+                                      numericality: { greater_than_or_equal_to: 0 }, :if => proc { |d| d.price.present? }
+
 end

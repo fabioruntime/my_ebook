@@ -6,16 +6,22 @@ Rails.application.routes.draw do
       patch :change_status
     end
   end
+
+  get 'signup', to: 'users#new'
   resources :users, except: [:new], constraint: { id: /\d+/ }
   resources :users do
     member do
       patch :change_status
     end
   end
-  get 'signup', to: 'users#new'
+
   get 'ebooksmanagement', to: 'ebooks#manager_ebooks'
   get 'usersmanagement', to: 'users#manager_users'
   get 'ebook/book', to: 'ebooks#book'
+
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
 
   scope '/checkout' do
     post 'create', to: 'checkout#create', as: 'checkout_create'

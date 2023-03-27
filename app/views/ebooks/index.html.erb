@@ -1,9 +1,14 @@
 <div class="text-center mt-4">
   <h1>Ebooks</h1>
-  <%= link_to "Add Ebook", new_ebook_path, class: "btn btn-outline-danger" %>
+  <% if current_user && current_user.admin? %>
+    <%= link_to "Add Ebook", new_ebook_path, class: "btn btn-outline-danger" %>
+  <% end %>
 </div>
 
 <div class="container">
+  <div class="list_pagination">
+    <%== pagy_nav(pagy) %>
+  </div>
   <div class="row">
     <% ebooks.each do |ebook| %>
         <div class="col-12 col-lg-4 mt-4 mb-4">
@@ -22,7 +27,15 @@
                 <h6 class="card-title"><%= ebook.date_release %></h6>
                 <p class="card-text"><%= truncate(ebook.description, length: 100)  %></p>
               </div>
-               <%= button_to 'Buy now', checkout_create_path, params: { id: ebook.id }, class: "btn btn-danger mt-4 w-100" %>
+              <%= button_to 'Buy now', checkout_create_path, params: { id: ebook.id }, remote: true, class: "btn btn-danger mt-4 w-100" %>
+
+              <!--%= link_to 'Buy now', checkout_create_path(id: ebook.id), class: "a-primary" %>
+
+              <div-- id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content"></div>
+                </div>
+              </div-->
             </div>
         </div>
     <% end %>

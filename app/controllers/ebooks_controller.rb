@@ -1,8 +1,11 @@
 class EbooksController < ApplicationController
+  include Pagy::Backend
+
+  before_action :require_admin, only: [:manager_ebooks]
 
   def index
-    ebooks = Ebook.all
-    render :index, locals: { ebooks: ebooks }
+    pagy, ebooks = pagy(Ebook.order("title"), items: 9)
+    render :index, locals: { ebooks: ebooks, pagy: pagy }
   end
 
   def show
@@ -11,6 +14,7 @@ class EbooksController < ApplicationController
   end
 
   def new
+    session[:return_to] = request.referer
     render :new, locals: { ebook: Ebook.new }
   end
 
@@ -20,9 +24,10 @@ class EbooksController < ApplicationController
   end
 
   def create
+    byebug
     ebook = Ebook.new(ebook_params)
     ebook.save!
-    redirect_to ebooks_path, notice:"Ebook created successfully"
+    redirect_to return_url, notice:"Ebook created successfully"
 
   rescue StandardError => e
     flash[:danger] = "Error creating a new Ebook: #{e} "
@@ -55,7 +60,7 @@ class EbooksController < ApplicationController
     if params[:status].present? && Ebook::statuses.include?(params[:status].to_sym)
       ebook = Ebook.find(params[:id])
       ebook.update(status: params[:status])
-      redirect_to ebook, notice: "Status updated to #{ebook.status}"
+      redirect_to ebooksmanagement_path, locals: { ebooks: Ebook.all }, notice: "Status updated to #{ebook.status}"
     else
       render :manager_ebooks, status: :unprocessable_entity
     end
@@ -72,10 +77,10 @@ class EbooksController < ApplicationController
   end
 
   def ebook_params
-    params.require(:ebook).permit(:title, :description, :date_release, :status, :image, :files)
+    params.require(:ebook).permit(:title, :description, :date_release, :price, :status, :num_pages, :image, :files)
   end
 
-  def render_unpermitted_params_response
-    render json: { "Unpermitted Parameters": params.to_unsafe_h.except(:controller, :action, :title, :description, :date_release, :status, :image).keys }, status: :unprocessable_entity
+  def return_url
+    url_from(session[:return_to]) || ebooks_path
   end
 end

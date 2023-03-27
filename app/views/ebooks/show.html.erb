@@ -4,15 +4,17 @@
       <div class="ebook-detail-image">
         <div class="shadow p-3 mb-3 bg-white border border-light rounded">
           <% if ebook.image.attached? %>
-            <%= cl_image_tag( "ebooks/#{ebook.image.key}", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"],  width: 300, crop: "fill") %>
+            <%= cl_image_tag( "ebooks/#{ebook.image.key}", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"],  width: 400, crop: "fill") %>
           <% else %>
-            <%= cl_image_tag "ebooks/default_image_prdz6a.jpg", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 300, crop: "fill"%>
+            <%= cl_image_tag "ebooks/default_image_prdz6a.jpg", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 400, crop: "fill"%>
           <% end %>
         </div>
-        <div class="text-center mt-4">
-          <%= link_to "Edit Ebook", edit_ebook_path(ebook), class: "btn btn-outline-danger" %>
-          <%= link_to "Delete Ebook", ebook_path(ebook), class: "btn btn-outline-danger", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure?"} %>
-        </div>
+        <% if current_user && current_user.admin? %>
+          <div class="text-center mt-4">
+            <%= link_to "Edit Ebook", edit_ebook_path(ebook), class: "btn btn-outline-danger" %>
+            <%= link_to "Delete Ebook", ebook_path(ebook), class: "btn btn-outline-danger", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure?"} %>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="column">
@@ -24,20 +26,25 @@
         <p><strong> Status: </strong>
           <%= ebook.status.capitalize %>
         </p>
-        <br/>
-        <span>
+        <p>
           <strong> Release: </strong>
           <%= ebook.date_release %>
           <br/>
           <strong> No. of pages: </strong>
-
-        </span>
+          <%= ebook.num_pages %>
+        </p>
         <div class="description">
           <strong> Description: </strong>
           <%= ebook.description %>
         </div>
 
         <% if ebook.files.attached? %>
+          <div class="text-left mt-4">
+            <strong> Price: </strong>
+            <p class="price">
+              <%= number_to_currency_eur(ebook.price) %>
+            </p>
+          </div>
           <div class="justify-content-md-center mt-4">
             <%= link_to "Launch this book", ebook_book_path(ebook_id: ebook.id), class: "btn btn-danger" %>
           </div>

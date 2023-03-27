@@ -1,15 +1,22 @@
 <div class="container">
-  <h1 class="text-center mt-4">Users Management</h1>
+  <h1 class="text-center mt-4 mb-4">Users Management</h1>
 
-  <table class="table">
+  <table class="table table-striped p-3 mb-2 rounded bg-light text-dark">
     <tbody>
-      <% @users.each do |user| %>
+      <% users.each do |user| %>
         <tr>
+          <td class="align-middle text-center">
+            <% if user.avatar.attached? %>
+              <%= cl_image_tag  "profiles/#{user.avatar.key}", version: ENV["CLOUD_PROFILES_FOLDER_VERSION"], width: 50, crop: "fill" %>
+            <% else %>
+              <%= cl_image_tag "profiles/default_avatar_j9qcnm.jpg", version: ENV["CLOUD_PROFILES_FOLDER_VERSION"], width: 50, crop: " "%>
+            <% end %>
+          </td>
           <td><strong> <%= link_to user.name, user, class: "a-primary" %> </strong>
               <p><%= user.username %> </p>
             </td>
           <td><%= user.email %></td>
-          <td>
+          <td class="align-middle text-center">
             <% User::statuses.each do |status, key| %>
               <%= link_to status, change_status_user_path(user, status: status), class: "#{user.status.eql?(status)? 'btn btn-secondary btn-sm' : 'btn btn-outline-secondary btn-sm'}", data: {"turbo-method": :patch } %>
             <% end %>
