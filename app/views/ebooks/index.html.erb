@@ -27,15 +27,10 @@
                 <h6 class="card-title"><%= ebook.date_release %></h6>
                 <p class="card-text"><%= truncate(ebook.description, length: 100)  %></p>
               </div>
-              <%= button_to 'Buy now', checkout_create_path, params: { id: ebook.id }, remote: true, class: "btn btn-danger mt-4 w-100" %>
-
-              <!--%= link_to 'Buy now', checkout_create_path(id: ebook.id), class: "a-primary" %>
-
-              <div-- id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content"></div>
-                </div>
-              </div-->
+              <button type="button" class="btn btn-danger mt-4 w-100" data-toggle="modal" data-target="#shoppingCartModal">
+                Buy Now
+              </button>
+              <%= render 'checkout/modal', ebook: ebook%>
             </div>
         </div>
     <% end %>

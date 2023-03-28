@@ -46,7 +46,7 @@
             </p>
           </div>
           <div class="justify-content-md-center mt-4">
-            <%= link_to "Launch this book", ebook_book_path(ebook_id: ebook.id), class: "btn btn-danger" %>
+            <%= link_to("Launch this book", cl_signed_download_url("ebooks_files/"+ebook.files.key, attachment: true), {class: "btn btn-danger", target: '_blank' }) %>
           </div>
         <% end %>
       </div>
