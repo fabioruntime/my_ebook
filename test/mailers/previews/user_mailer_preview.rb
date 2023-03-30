@@ -7,4 +7,11 @@ class UserMailerPreview < ActionMailer::Preview
 
     UserMailer.with(user: user, ebook: ebook).confirmation_email
   end
+
+  def changestatus_email
+    user = User.new(name: "Joe Smith", email: "joe@gmail.com", username: "joesmith", password: "123")
+    ebook = Ebook.new(title: "Ebook Test", description: "test", date_release: "01-01-1999", price: '39.90', num_pages: 2)
+
+    UserMailer.with(user: user, ebook: ebook).changestatus_email
+  end
 end

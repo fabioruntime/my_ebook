@@ -24,7 +24,6 @@ class EbooksController < ApplicationController
   end
 
   def create
-    byebug
     ebook = Ebook.new(ebook_params)
     ebook.save!
     redirect_to return_url, notice:"Ebook created successfully"
@@ -60,6 +59,8 @@ class EbooksController < ApplicationController
     if params[:status].present? && Ebook::statuses.include?(params[:status].to_sym)
       ebook = Ebook.find(params[:id])
       ebook.update(status: params[:status])
+
+      send_users_email(ebook) if ebook.live?
       redirect_to ebooksmanagement_path, locals: { ebooks: Ebook.all }, notice: "Status updated to #{ebook.status}"
     else
       render :manager_ebooks, status: :unprocessable_entity
@@ -82,5 +83,12 @@ class EbooksController < ApplicationController
 
   def return_url
     url_from(session[:return_to]) || ebooks_path
+  end
+
+  def send_users_email(ebook)
+    users = User.all
+    users.each do | user |
+      UserMailer.with(user: user, ebook: ebook).changestatus_email.deliver_later if !user.admin?
+    end
   end
 end

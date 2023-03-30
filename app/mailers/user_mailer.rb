@@ -9,8 +9,17 @@ class UserMailer < ApplicationMailer
     puts "ERROR: #{e}"
   end
 
+  def changestatus_email
+    @user = params[:user]
+    @ebook  = params[:ebook]
+    mail(to: @user.email, subject: 'MYEBOOK - Available now!')
+  rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+    puts "ERROR: #{e}"
+  end
+
   private
   def apply_discount(price, discount)
-    price - ( discount.to_f / 100 * price )
+    price - ( discount.to_f / 100 * price ) if !price.blank?
+    0
   end
 end

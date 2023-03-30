@@ -1,9 +1,39 @@
 <div class="container" id="home-container">
-  <div class="jumbotron text-left text-secondary ">
+  <div class="jumbotron text-left text-secondary h-100">
     <h3 class="description"> Trending Now in eBooks </h3>
+    <div class="row">
+      <% ebooks_top.each do |ebook| %>
+        <div class="col-1 col-lg-2 mt-4 mb-4">
+          <div>
+            <div class="text-center mt-4">
+              <% if ebook.image.attached? %>
+                <%= cl_image_tag  "ebooks/#{ebook.image.key}", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], height: 200, crop: "fill" %>
+              <% else %>
+                <%= cl_image_tag "ebooks/default_image_prdz6a.jpg", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 100, crop: " "%>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
     <hr class="my-4">
 
     <h3 class="description"> New releases you don't want to miss </h3>
+    <div class="row">
+      <% ebooks_coming.each do |ebook| %>
+        <div class="col-1 col-lg-2 mt-4 mb-4">
+          <div>
+            <div class="text-center mt-4">
+              <% if ebook.image.attached? %>
+                <%= cl_image_tag  "ebooks/#{ebook.image.key}", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], height: 200, crop: "fill" %>
+              <% else %>
+                <%= cl_image_tag "ebooks/default_image_prdz6a.jpg", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 100, crop: " "%>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
     <hr class="my-4">
   </div>
 </div>
