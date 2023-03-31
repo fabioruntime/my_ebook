@@ -8,6 +8,8 @@ class Ebook < ApplicationRecord
   has_many :user_ebook
   has_many :users, through: :user_ebook
 
+  scope :coming, -> { where(status: :pending) }
+
   validates :title, presence: true
   validates :description, presence: true
   validates :price, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/,

@@ -28,14 +28,21 @@
     </div>
   </div>
   <% if !ebooks.blank? %>
-    <div class="row justify-content-md-left mt-4">
+    <div class="row justify-content-md-left mt-4 ebook-detail-text">
       <h2> My Ebooks </h2>
       <table class="table">
         <tbody>
           <% ebooks.each do |ebook| %>
             <tr>
-              <td>
-                <%= link_to ebook.title, ebook %>
+              <td class="align-middle text-left">
+                <% if ebook.image.attached? %>
+                  <%= cl_image_tag  "ebooks/#{ebook.image.key}", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 50, crop: "fill" %>
+                <% else %>
+                  <%= cl_image_tag "ebooks/default_image_prdz6a.jpg", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 50, crop: " "%>
+                <% end %>
+              </td>
+              <td class="align-middle text-left w-100">
+                <%= link_to ebook.title, ebook, class: "ebook-detail-text a-primary" %>
               </td>
             </tr>
           <% end %>

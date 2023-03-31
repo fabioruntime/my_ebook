@@ -10,35 +10,30 @@
     <%== pagy_nav(pagy) %>
   </div>
   <div class="row">
-    <% ebooks.each do |ebook| %>
-        <div class="col-12 col-lg-4 mt-4 mb-4">
-            <div class="card h-100">
-              <div class="text-center mt-4">
-                <% if ebook.image.attached? %>
-                  <%= cl_image_tag  "ebooks/#{ebook.image.key}", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 200, crop: "fill" %>
-                <% else %>
-                  <%= cl_image_tag "ebooks/default_image_prdz6a.jpg", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 200, crop: " "%>
-                <% end %>
-              </div>
-              <div class="card-body mt-4">
-                <h5 class="card-title">
-                  <%= link_to ebook.title, ebook_path(ebook), class: "a-primary" %>
-                </h5>
-                <h6 class="card-title"><%= ebook.date_release %></h6>
-                <p class="card-text"><%= truncate(ebook.description, length: 100)  %></p>
-              </div>
-              <%= button_to 'Buy now', checkout_create_path, params: { id: ebook.id }, remote: true, class: "btn btn-danger mt-4 w-100" %>
+    <% ebooks.each do |eb| %>
+      <div class="col-12 col-lg-4 mt-4 mb-4">
+        <div class="card h-100">
+          <div class="text-center mt-4">
+            <% if eb.image.attached? %>
+              <%= cl_image_tag  "ebooks/#{eb.image.key}", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 200, crop: "fill" %>
+            <% else %>
+              <%= cl_image_tag "ebooks/default_image_prdz6a.jpg", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 200, crop: " "%>
+            <% end %>
+          </div>
+          <div class="card-body mt-4">
+            <h5 class="card-title">
+              <%= link_to eb.title, ebook_path(eb), class: "a-primary" %>
+            </h5>
+            <h6 class="card-title"><%= eb.date_release %></h6>
+            <p class="card-text"><%= truncate(eb.description, length: 100)  %></p>
+          </div>
+          <button type="button" class="btn btn-danger mt-4 w-100" data-toggle="modal" data-target="#shoppingCartModal" data-title="<%= eb.title %>" data-ebook-id="<%= eb.id %>">
+            Buy Now
+          </button>
 
-              <!--%= link_to 'Buy now', checkout_create_path(id: ebook.id), class: "a-primary" %>
-
-              <div-- id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content"></div>
-                </div>
-              </div-->
-            </div>
+          <%= render 'checkout/modal' %>
         </div>
+      </div>
     <% end %>
   </div>
 </div>
-

@@ -49,6 +49,9 @@ gem "bootsnap", require: false
 gem 'cloudinary'
 gem 'dotenv-rails'
 
+gem 'sidekiq'
+gem 'redis'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>MYEBOOK</h1>
+    <hr>
+    <h1>Thank you <%= @user.name %>, <br>
+        your order has been registered.
+    </h1>
+    <p>
+      With this purchase you have 10% discount.
+    <br>
+      The price of book '<%= @ebook.title %>' is now <%= @new_price %>€.
+    </p>
+    <br>
+    <p>Thanks for choosing us and have a great day!</p>
+  </body>
+</html>

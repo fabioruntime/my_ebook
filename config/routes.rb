@@ -1,4 +1,7 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
   root 'pages#home'
   resources :ebooks, constraint: { id: /\d+/ }
   resources :ebooks do
@@ -24,6 +27,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   scope '/checkout' do
+    get 'new', to: 'checkout#new', as: 'checkout_new'
     post 'create', to: 'checkout#create', as: 'checkout_create'
     get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
     get 'success', to: 'checkout#success', as: 'checkout_success'
