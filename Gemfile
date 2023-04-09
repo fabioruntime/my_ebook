@@ -58,10 +58,12 @@ gem 'redis'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
-end
+  group :development, :test do
+    # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+    gem "debug", platforms: %i[ mri mingw x64_mingw ]
+    gem 'rspec-rails', '~> 6.0', '>= 6.0.1'
+    gem 'byebug'
+  end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
@@ -80,6 +82,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'factory_bot_rails'
+  gem 'rspec_junit_formatter'
+  gem 'faker'
 end
 
 gem "hotwire-rails", "~> 0.1.3"

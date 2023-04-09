@@ -4,6 +4,7 @@ class CheckoutController < ApplicationController
   end
 
   def create
+    return if current_user.nil?
     ebook = Ebook.find(params[:ebook_id])
     redirect_to ebooks_path if ebook.nil?
 

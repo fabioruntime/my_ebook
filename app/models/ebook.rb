@@ -10,7 +10,7 @@ class Ebook < ApplicationRecord
 
   scope :coming, -> { where(status: :pending) }
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { minimum: 3, maximum: 150 }
   validates :description, presence: true
   validates :price, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/,
                                       message: "Price must be equal 0 or greater 0.01" },
