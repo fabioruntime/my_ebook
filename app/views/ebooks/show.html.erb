@@ -9,7 +9,7 @@
             <%= cl_image_tag "ebooks/default_image_prdz6a.jpg", version: ENV["CLOUD_EBOOKS_FOLDER_VERSION"], width: 400, crop: "fill"%>
           <% end %>
         </div>
-        <% if current_user && current_user.admin? %>
+        <% if current_user&.admin? %>
           <div class="text-center mt-4">
             <%= link_to "Edit Ebook", edit_ebook_path(ebook), class: "btn btn-outline-danger" %>
             <%= link_to "Delete Ebook", ebook_path(ebook), class: "btn btn-outline-danger", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure?"} %>

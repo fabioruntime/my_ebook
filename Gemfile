@@ -75,6 +75,10 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   gem 'byebug'
+  gem 'rubocop', '~> 1.50', require: false
+  gem 'rubocop-rspec'
+  gem 'rubocop-performance'
+  gem "rubocop-shopify", require: false
 end
 
 group :test do

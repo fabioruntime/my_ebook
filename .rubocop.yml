@@ -1,0 +1,17 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+AllCops:
+    NewCops: enable
+
+Layout/LineLength:
+  Max: 160
+
+Style/FrozenStringLiteralComment:
+ Enabled: false
+
+Metrics/BlockLength:
+ AllowedMethods: ['describe', 'context', 'feature', 'scenario', 'let']
+
+Lint/EndAlignment:
+  AutoCorrect: true
