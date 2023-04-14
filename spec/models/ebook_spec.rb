@@ -87,7 +87,7 @@ describe Ebook do
     expect(UserEbook.count).to(eql(2))
     expect(Author.count).to(eql(2))
     expect(User.count).to(eql(2))
-    expect { ebook.destroy }.to change(Ebook, :count).by(-1)
+    expect { ebook.destroy }.to(change(Ebook, :count).by(-1))
     expect(UserEbook.count).to(eql(2))
     expect(Author.count).to(eql(2))
     expect(User.count).to(eql(2))
